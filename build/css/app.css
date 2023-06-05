@@ -1,5 +1,12 @@
 body {
-  background-color: blue;
+  background-color: red;
 }
 
-/*# sourceMappingURL=app.css.map */
+h1 {
+  color: white;
+}
+
+/*
+@import 'base/variables'; 
+@import 'contenido/contenido';
+*/

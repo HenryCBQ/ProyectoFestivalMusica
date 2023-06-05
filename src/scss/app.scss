@@ -1,5 +1,10 @@
-$rojo: blue;
+//Para ordenar mejor las hojas de estilos se puede seperar en varios archivos. El principal siempre es app.scss, los archivos hijos siempre se deben nombrar con un _ al principio
+//Forma vieja de llamar un archivo scss, era suficiente con el import
+/*
+@import 'base/variables'; 
+@import 'contenido/contenido';
+*/
 
-body{
-    background-color: $rojo;
-}
+//Nueva forma de llamar archivos scss
+@use 'base';
+@use 'contenido';
