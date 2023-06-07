@@ -1,1 +1,22 @@
+@use 'base/variables' as v;
 //Los mixins nos permite crear clases para estilos repetitivos se declaran como @mixin y se llaman en las hojas de estilos como @include
+@mixin telefono {
+    @media (min-width: v.$telefono){
+        @content; //Contiene las propiedades que se definan en el lugar donde se llame al mixin
+    }
+}
+@mixin tablet {
+    @media (min-width: v.$tablet){
+        @content; //Contiene las propiedades que se definan en el lugar donde se llame al mixin
+    }
+}
+@mixin telefono {
+    @media (min-width: v.$desktop){
+        @content; //Contiene las propiedades que se definan en el lugar donde se llame al mixin
+    }
+}
+@mixin telefono {
+    @media (min-width: v.$desktopXL){
+        @content; //Contiene las propiedades que se definan en el lugar donde se llame al mixin
+    }
+}
