@@ -10,13 +10,19 @@
         @content; //Contiene las propiedades que se definan en el lugar donde se llame al mixin
     }
 }
-@mixin telefono {
+@mixin desktop {
     @media (min-width: v.$desktop){
         @content; //Contiene las propiedades que se definan en el lugar donde se llame al mixin
     }
 }
-@mixin telefono {
+@mixin desktopXL {
     @media (min-width: v.$desktopXL){
         @content; //Contiene las propiedades que se definan en el lugar donde se llame al mixin
     }
+}
+
+@mixin grid($columnas, $espacio){
+    display: grid;
+    grid-template-columns: repeat($columnas, 1fr);
+    gap: $espacio;
 }
