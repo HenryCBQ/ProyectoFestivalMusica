@@ -9,6 +9,8 @@ const webp = require('gulp-webp');
 //Extraer funcion para aligerar imagenes jpg, png
 const imagemin = require('gulp-imagemin');
 const cache = require('gulp-cache');
+//Extraer función para convertir imágenes a avif
+const avif = require('gulp-avif');
 
 //Creo la funcion para leer, compilñar y guardar la hoja de estilos.
 function css(done){
@@ -28,6 +30,19 @@ function imgWebp(done){
     //Busco todos los archivos que haya en la carpeta imagenes con los formatos jpg y png, le paso la calidad de las imagenes
     src('src/img/**/*.{jpg,png}')
         .pipe(webp(calidadImagen))
+        .pipe(dest('build/img')) //Asigno la ruta de destino de las imagenes convertidas
+    done();
+}
+
+//Funcion para cambiar el formato de las imagenes a Avif
+function imgAvif(done){
+    //La calidad de las imagenes webp va de 0 a 100
+    const calidadImagen = {
+        calidad: 50
+    };
+    //Busco todos los archivos que haya en la carpeta imagenes con los formatos jpg y png, le paso la calidad de las imagenes
+    src('src/img/**/*.{jpg,png}')
+        .pipe(avif(calidadImagen))
         .pipe(dest('build/img')) //Asigno la ruta de destino de las imagenes convertidas
     done();
 }
@@ -57,4 +72,5 @@ function dev(done){
 exports.css = css; //No es necesario ponerle parentesis a la funcion para mandarla a llamar con node
 exports.imgLigero = imgLigero;
 exports.imgWebp = imgWebp;
-exports.dev = parallel(imgLigero,imgWebp,dev); //Ejecuta las tareas paralelamente
+exports.imgAvif = avif;
+exports.dev = parallel(imgLigero,imgWebp,imgAvif,dev); //Ejecuta las tareas paralelamente

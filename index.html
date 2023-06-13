@@ -46,7 +46,12 @@
 
     <section class="contenedor sobre-festival">
         <div class="contenido">
-            <img src="build/img/imagen_vocalista.jpg" alt="Imagen vocalista del festival">
+            <picture>
+                <!--Se debe colocar la opción jpg por si el navegador no soporta el tipo imagen avif, si no se coloca la imagen no se muestra-->
+                <source srcset="build/img/imagen_vocalista.avif" type="image/avif">
+                <source srcset="build/img/imagen_vocalista.webp" type="image/webp">
+                <img src="build/img/imagen_vocalista.jpg" alt="Imagen Vocalista">
+            </picture>
         </div>
         <div class="contenido-festival">
             <h2>Rock Festival</h2>
