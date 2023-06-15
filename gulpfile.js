@@ -60,9 +60,17 @@ function imgLigero(done){
     done();
 }
 
+//Lleva los archivos js de la carpeta SRC al Build.
+function javaScript(done){
+    src('src/js/**/*.js')
+        .pipe(dest('build/js'));
+    done();
+}
+
 //Función para compilar el archivo app.scss cad avez que se modifique
 function dev(done){
-    watch("src/scss/**/*.scss", css); //Indico ruta del archivo y llamo la función que lo compila
+    watch("src/scss/**/*.scss", css); //Indico que valide los cambios que sufran los archivos scss para luego guardarlos en su ruta de destino
+    watch("src/js/**/*.js", javaScript); //Indico que valide los cambios que sufran los archivos js para luego guardarlos en su ruta de destino
     done();
 }
 
@@ -70,7 +78,8 @@ function dev(done){
 //Comando para ejecutar funciones en gulp -> npx gulp nombreFuncion
 //Con control+c pauso la funcion de watch
 exports.css = css; //No es necesario ponerle parentesis a la funcion para mandarla a llamar con node
+exports.javaScript = javaScript;
 exports.imgLigero = imgLigero;
 exports.imgWebp = imgWebp;
 exports.imgAvif = avif;
-exports.dev = parallel(imgLigero,imgWebp,imgAvif,dev); //Ejecuta las tareas paralelamente
+exports.dev = parallel(imgLigero,imgWebp,imgAvif,javaScript,dev); //Ejecuta las tareas paralelamente
