@@ -13,6 +13,10 @@ html{
 body{
     font-family: v.$fuente_principal;
     font-size: 1.6rem;
+    //Fijar el body cuando se crea el overlay
+    &.fijar-body{
+        overflow: hidden;
+    }
 }
 p{
     font-size: 2rem;
