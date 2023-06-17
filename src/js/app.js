@@ -2,7 +2,41 @@ document.addEventListener('DOMContentLoaded', function(){ //Creo una función pa
     iniciarApp();
 });
 function iniciarApp(){ //Esta función llama a todas las funciones que se deben ejecutar
+    barraNavegacionFija();
     crearGaleria();
+    scrollNav(); //Funcion para navegar por las secciones
+}
+
+//Dejar la negacion fija cuando el escroll llega a cierta parte d ela pagina
+function barraNavegacionFija(){
+    const barraNavegacion = document.querySelector('.header'); //Seleciono la barra de navegacion
+    const sobreFestival = document.querySelector('.sobre-festival'); //Selecciona la parte de la pagina donde se debe fijar la barra de navegacion
+    const body = document.querySelector('body');
+    //Identificar el elemnto sobrefestival de acuerdo al movimiento del scroll
+    window.addEventListener('scroll', function(){
+        //Si ya paso el elemento, determinado por la parte superior del mismo (top)
+        if(sobreFestival.getBoundingClientRect().top < 0){
+            barraNavegacion.classList.add('fijar'); //Agrego una clase css si ya paso el elemto
+            body.classList.add('body-scroll'); //Calse css creada en el body para prevenir el salto que ocurre cuando se fija la barra navegacion
+        }else{
+            barraNavegacion.classList.remove('fijar'); //Elimino la clase si no ha pasado por el elemento
+            body.classList.remove('body-scroll'); //Elimino la clase si no ha pasado por el elemento
+        }
+    });
+}
+
+//Funcion para nevagar por las secciones de la pagina
+function scrollNav(){
+    const enlaces = document.querySelectorAll('.navegacion-principal a');
+    //Al seleccionar todos los elementos se debe agregar el evento por medio de un foreEach para no generar error
+    enlaces.forEach(enlace =>{
+        enlace.addEventListener('click', function(e){
+            e.preventDefault(); //Quito comportamiento por defecto
+            const seccionScroll = e.target.attributes.href.value; //Acceder a los atributos de cada seccion, en este caso los id de los enlaces
+            const seccion = document.querySelector(seccionScroll); 
+            seccion.scrollIntoView({behavior: "smooth"}); //asigno nuevo comportamiento para que el scroll sea mas lento
+        });
+    });
 }
 
 function crearGaleria(){

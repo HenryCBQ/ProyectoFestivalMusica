@@ -1,9 +1,17 @@
 //Extraer funciones del node_modules para compilar el código SASS a CSS, puntualmente src es para ubicar archivos y el dest para guardar
 //watch permite ejecutar tareas cada vez que se actualiza la hoja de estilos de SCSS
 const {src, dest, watch, parallel} = require("gulp");
+
+//CSS
 const sass = require("gulp-sass")(require("sass")); //Llamar el archivo SASS y el archivo gulp-sass que permite comunicacion entre ambos
 const plumber = require('gulp-plumber');
+//CSS mejorar performance
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
+const postcss = require('gulp-postcss');
+const sourcemaps = require('gulp-sourcemaps'); //Conservar las referencias de css. Cuando se mejora el performance queda en una sola linea todo el csss
 
+//Imagenes
 //Extraer función instalada para convertir imágenes a formato webp
 const webp = require('gulp-webp');
 //Extraer funcion para aligerar imagenes jpg, png
@@ -15,8 +23,11 @@ const avif = require('gulp-avif');
 //Creo la funcion para leer, compilñar y guardar la hoja de estilos.
 function css(done){
     src("src/scss/**/*.scss") //Identidico todos los archivo con extension SCSS de la carpeta scss
+        .pipe(sourcemaps.init())//Conserva referencias de linea de css
         .pipe(plumber()) //Previene que cada vez que haya un error se detenga la ejecución de la tarea
         .pipe(sass()) //El pipe ejecuta una tarea secuencialmente, entonces ejecuta el archivo sass mandado a llamar con require anteriormente
+        .pipe(postcss([autoprefixer(), cssnano()])) //Mejorar performance del css
+        .pipe(sourcemaps.write('.'))//Guarda las referencia de lineas en la misma hoja de estilos css
         .pipe(dest("build/css")); //Guarda el archivo
     done(); //Indico dónde termina la función
 }

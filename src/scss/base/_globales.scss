@@ -17,6 +17,10 @@ body{
     &.fijar-body{
         overflow: hidden;
     }
+    //Calse css creada con js para prevenir salto de elemento al fijarla barra de navegacion
+    &.body-scroll{
+        padding-top: 8.6rem;
+    }
 }
 p{
     font-size: 2rem;
